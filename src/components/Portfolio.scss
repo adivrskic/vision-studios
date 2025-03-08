@@ -1,0 +1,114 @@
+@import '../styles/colors';
+
+.portfolio {
+  min-height: 100vh;
+  height: 100%;
+  background: $deep-orbit;
+  color: #fff;
+
+  .feature-project {
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    scroll-snap-align: start;
+  }
+
+  .feature-image {
+    width: 100%;
+    height: 75vh;
+    background-color: rgba(255,255,255,.1);
+  }
+
+  h2 {
+    padding: 1rem 0 0 1rem;
+  }
+
+
+  .feature-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 2160px;
+    margin-top: 1.5rem;
+    padding: 0 1rem;
+    border-radius: 10px;
+
+    p {
+      font-size: 1rem;
+      text-align: left;
+      // padding: 0.75rem;
+      border-radius: 5px;
+    }
+  }
+
+  .project-image {
+    position: relative;
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .loader {
+      position: absolute;
+      width: 100%;
+      height: 0%;
+      background: linear-gradient(135deg, #1b0033, #660099, #ff0077);
+      animation: expandLoader 2s forwards;
+    }
+
+    @keyframes expandLoader {
+      0% { height: 0%; }
+      100% { height: 100%; }
+    }
+
+    .collage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.8);
+      gap: 10px;
+      padding: 10px;
+
+      img {
+        width: 30%;
+        height: auto;
+        object-fit: cover;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  .project-info {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 10px;
+    background: #1a1a1a;
+    color: white;
+    text-align: left;
+
+    .info-row {
+      display: flex;
+      justify-content: space-around;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,137 @@
+@import '../styles/colors';
+
+.cta-sections {
+  height: 100%;
+  min-height: 100vh;
+}
+
+.cta-section {
+  height: 100vh;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  scroll-snap-align: start;
+
+  &--reverse {
+    flex-direction: row-reverse;
+
+    .cta-content {
+      text-align: right;
+      padding-left: 0;
+      padding-right: 200px;
+      justify-content: center;
+      align-items: flex-end;
+
+      .cta-list li {
+        justify-content: flex-end;
+      }
+    }
+  }
+}
+
+.cta-object {
+  width: 50%;
+}
+
+.cta-content {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: center;
+  padding-left: 200px
+}
+
+.cta-header {
+  position: relative;
+  font-size: 36px;
+  
+  .cta-bold {
+    font-weight: 700;
+  }
+  
+  .cta-light {
+    font-weight: 200;
+  }
+}
+.cta-list {
+  list-style: none;
+  // font-size: 18px;
+  font-style: italic;
+  font-weight: 200;
+
+  li {
+    display: flex;
+    align-items: center;
+
+    svg {
+      // margin-right: 5px;
+      height: 30px;
+      width: 30px;
+    }
+  }
+}
+
+.cta-button {
+  position: relative;
+  width: 250px;
+  
+  &:hover::before {
+    content: "Press and hold";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    // transform: translateX(-50%) translateY(0);
+    opacity: 0;
+    width: 250px;
+    // transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  }
+
+  &:hover {
+    &::before {
+      // transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    background: $deep-orbit;
+  }
+}
+
+
+@media (max-width: 960px) {
+  .cta-section {  
+    
+    &--reverse {  
+      .cta-content {
+        text-align: center;
+        padding: 20px;
+        align-items: center
+      }
+    }
+  }
+  
+  .cta-content {
+    width: 100%;
+    padding-left: 0px;
+    padding: 20px;
+    align-items: center;  
+    justify-content: center;
+  }
+
+  .cta-header {
+    font-size: 28px;
+  }
+
+  .cta-header,
+  .cta-subheader {
+    text-align: center;
+  }
+  .cta-content .cta-list li,
+  .cta-section--reverse .cta-content .cta-list li {
+    justify-content: center;
+  }
+}

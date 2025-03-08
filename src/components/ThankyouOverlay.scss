@@ -1,0 +1,126 @@
+@import '../styles/global';
+
+.thank-you-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+
+  &__quote {
+    font-size: 64px;
+    text-align: center;
+    max-width: calc(100% - 40px);
+    width: 1080px;
+    position: absolute;
+    top: 12.5%;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: absolute;
+    top: 60%;
+    width: 480px;
+    max-width: calc(100% - 40px);
+    text-align: center;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+  }
+
+  .email-form {
+    margin: 1rem auto;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+  
+    // input {
+    //   padding: 0.75rem;
+    //   border: 1px solid #ccc;
+    //   border-radius: 5px;
+    //   font-size: 1rem;
+    // }
+  
+    // button {
+    //   background: #007bff;
+    //   color: white;
+    //   border: none;
+    //   padding: 0.75rem 1.5rem;
+    //   font-size: 1rem;
+    //   cursor: pointer;
+    //   border-radius: 5px;
+    // }
+  }
+
+  &__email-input {
+    border: 1px solid var(--text-primary);
+    border-right: none;
+    border-top-left-radius: 999px;
+    border-bottom-left-radius: 999px;
+    padding-left:20px;
+  }
+
+  &__email-container {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items:center;
+  
+    .button {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-left: -10px;
+      background: var(--button-default-bg);
+      transition: background 0.3s ease, transform 0.2s ease;
+    
+      svg {
+        width: 25px;
+        height: 25px;
+        margin-right: 5px;
+      }
+    }
+
+    .button.valid-email {
+      background: var(--accent-primary);
+      color: white;
+    }
+  }
+
+  &__close {
+    background-color: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 200;
+    font-family: Inter;
+    margin-top: 60px;
+    position: absolute;
+    bottom: 40px;
+  }
+}
+
+.highlight-keyword {
+  color: var(--accent-primary);
+  background: var(--accent-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+@media (max-width: 960px) {
+  .quote-text {
+    font-size: 42px;
+  }
+}

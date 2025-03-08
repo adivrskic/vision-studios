@@ -1,0 +1,49 @@
+@import '../styles/colors';
+
+.hero {
+  width: 100%;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  &-header {
+    font-size: 50px;
+    text-transform: uppercase;
+
+    span {
+      font-weight: 100;
+      color: lighten(#333, 50%);
+    }
+  }
+
+  &-subheader {
+    width: 360px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  &-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: absolute;
+    top: calc(100% - 40px);
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    span {
+      font-weight: 300;
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .hero {
+    padding: 20px;
+  }
+}

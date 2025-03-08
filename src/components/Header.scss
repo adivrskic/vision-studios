@@ -1,0 +1,74 @@
+@import '../styles/colors';
+@import '../styles/constants';
+@import '../styles/animations';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  opacity: 0.3;
+  transition: opacity 0.2s $easing;
+
+  &:hover {
+    opacity: 1!important;
+  }
+  
+  .header-logo {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  &:hover .header-logo {
+    animation: gradientMove 4s infinite $easing forwards;
+  }
+
+  .header-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-svg {
+    height: 50px;
+    width: 50px;
+  }
+
+  svg {
+    height: 30px;
+    width: 30px;
+    transition: all .2s $easing;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 960px) {
+  .header {
+    align-items: center;
+    opacity: 1 !important;
+    padding: 20px;
+
+    .header-logo {
+      animation: gradientMove 4s infinite $easing forwards !important;
+    }
+
+    .header-buttons {
+      flex-direction: row-reverse;
+
+      .wave-toggle,
+      .theme-toggle {
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+      }
+    }
+  }
+}
+

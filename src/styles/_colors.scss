@@ -1,0 +1,37 @@
+$bg-light: rgba(252, 252, 252, 0.9);
+$bg-dark: rgba(18, 18, 18, 0.9);
+$text-light: #3f3f3f;
+$text-light-secondary:#c9c9c9;
+$text-dark: #fcfcfc;
+$text-dark-secondary: #c9c9c9;
+$slate: #5b9999;
+$supernova-burst:linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+$nebula-dream: linear-gradient(135deg, #8e2de2, #4a00e0);
+$deep-orbit:  linear-gradient(
+  135deg,
+  #ff6ec4, #7873f5, #50c9c3
+);
+
+$services-card-bg-light: rgba(255, 255, 255, 0.1);
+$services-card-bg-dark: rgba(255, 255, 255, 0.05);
+$services-card-bg-hover-light: rgba(255, 255, 255, 0.8);
+$services-card-bg-hover-dark: rgba(255, 255, 255, 0.1);
+$services-card-badge-bg-light: $bg-light;
+$services-card-badge-bg-dark: $bg-dark;
+// linear-gradient(to right, #fc466b, #3f5efb);
+
+$highlight-light: #ff6ec4;
+$highlight-dark: #84fab0;
+
+$input-border-filled-light: #333;
+$input-border-filled-dark: #fff;
+
+$footer-overlay-light: rgba(255, 255, 255, 0.25);
+$footer-overlay-dark: rgba(255, 255, 255, 0.05);
+
+$box-shadow-light:  0px 4px 20px rgba(255, 110, 196, 0.4),
+0px 6px 30px rgba(120, 115, 245, 0.3),
+0px 8px 40px rgba(80, 201, 195, 0.3);
+
+$box-shadow-dark: 0px 4px 20px rgba(132, 250, 176, 0.4), 
+0px 8px 40px rgba(143, 211, 244, 0.3);
