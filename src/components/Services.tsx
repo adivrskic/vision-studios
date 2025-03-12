@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { IoCheckmarkOutline, IoTimerOutline } from "react-icons/io5";
-import { services } from '../utils/constants';
+import { services, EASING } from '../utils/constants';
 import "./Services.scss";
 
 const Services: React.FC = () => {
@@ -22,7 +22,7 @@ const Services: React.FC = () => {
           hidden: {},
           visible: {
             transition: {
-              staggerChildren: 0.4,
+              staggerChildren: 1,
               delay: 2
             },
           },
@@ -43,23 +43,23 @@ const ServiceCard = ({ service }) => {
   return (
     <motion.div
       className="service-card p-6 bg-white shadow-lg rounded-lg relative overflow-hidden"
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 1, ease: EASING }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {service.badge && (
         <div className="service-card__badge">
-          <div className="service-card__badge-icon">{service?.badgeIcon}</div> 
+          <div className="service-card__badge-icon">{service.badgeIcon()}</div> 
           <span>{service.badge}</span>
         </div>
       )}
       
       <h3 className="service-card__header mb-3">{service.title}</h3>
       <p className="service-card__description mb-4">{service.description}</p>
-
+      
       <div className="service-card__timeframe">
         <IoTimerOutline className="mr-1" />
         <span>{service.timeframe}</span>

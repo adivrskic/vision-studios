@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Menu from "./components/Menu";
 import CTASections from "./components/CTASections";
+import Toast from './components/Toast';  // Import the Toast component
 import { EASING } from './utils/constants';
 import "./styles/styles.scss";
 
@@ -19,6 +20,13 @@ const App = () => {
   const [progress, setProgress] = useState(0);
   const [isWaveOn, setIsWaveOn] = useState(true);
   const [isOverlayOn, setIsOverlayOn] = useState(false);
+
+  const [showToast, setShowToast] = useState(false);
+
+  // Example condition to show the toast (e.g., a button click)
+  const handleConditionMet = () => {
+    setShowToast(true);
+  };
 
   const preloadContactModel = () => {
     import("./components/Menu"); // Dynamically import the component in advance
@@ -90,6 +98,8 @@ const App = () => {
     setIsWaveOn(!isWaveOn);
   }
 
+  const [isButtonHovered, setIsButtonHovered] = useState(false);
+
   return (
     <>
       {/* Background Wave Effect */}
@@ -142,16 +152,16 @@ const App = () => {
           />
         </motion.div>
         <section className="content-container" data-effect="hero">
-          <Hero setProgress={setProgress} hasLoadedOnce={hasLoadedOnce} />
+          <Hero setProgress={setProgress} hasLoadedOnce={hasLoadedOnce} setIsButtonHovered={setIsButtonHovered} />
         </section>
 
         <section className="content-container">
           <CTASections onOverlayToggle={(v) => handleOverlayToggle(v)} />
         </section>
 
-        {/* <section className="content-container" data-effect="portfolio">
+        <section className="content-container" data-effect="portfolio">
           <Portfolio />
-        </section> */}
+        </section>
 
         <section className="content-container" data-effect="services">
           <Services />
@@ -160,6 +170,12 @@ const App = () => {
         <section className="content-container" data-effect="footer">
           <Footer />
         </section>
+
+        <Toast 
+          message="Congrats! You have found a star!" 
+          show={showToast} 
+          onClose={() => setShowToast(false)} 
+        />
       </motion.div>
     </>
   );

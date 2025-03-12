@@ -12,13 +12,13 @@
   left: 0;
   width: 100%;
   z-index: 10;
-  opacity: 0.3;
-  transition: opacity 0.2s $easing;
-
-  &:hover {
-    opacity: 1!important;
-  }
+  opacity: 0.3; /* Set initial opacity */
+  transition: opacity 0.6s $easing; /* Add transition for opacity */
   
+  &:hover {
+    opacity: 1 !important;
+  }
+
   .header-logo {
     font-size: 48px;
     font-weight: 700;
@@ -45,19 +45,40 @@
   svg {
     height: 30px;
     width: 30px;
-    transition: all .2s $easing;
     cursor: pointer;
+  }
+}
+
+.wave-toggle svg {
+  width: 30px;
+  height: 30px;
+}
+
+.accent-icon {
+  color: #ffd700 !important;
+}
+
+.wave {
+  animation: waveAnimation 1.5s ease-in-out infinite;
+}
+
+@keyframes waveAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-45px);
   }
 }
 
 @media (max-width: 960px) {
   .header {
     align-items: center;
-    opacity: 1 !important;
+    opacity: 1;  /* Ensure full opacity on mobile */
     padding: 20px;
 
     .header-logo {
-      animation: gradientMove 4s infinite $easing forwards !important;
+      animation: gradientMove 4s infinite $easing forwards;
     }
 
     .header-buttons {
@@ -72,3 +93,8 @@
   }
 }
 
+@media (max-width: 480px) {
+  .header {
+    padding: 15px; /* Adjust padding on very small screens */
+  }
+}

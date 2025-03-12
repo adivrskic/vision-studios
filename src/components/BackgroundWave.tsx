@@ -5,12 +5,12 @@ import { SimplexNoise } from "three/examples/jsm/math/SimplexNoise";
 import { useTheme } from '../context/ThemeContext'; // Adjust import path as needed
 
 const waveEffects = {
-  hero: { speed: 0.03, maxSpeed: 0.2, scale: 1, noiseStrength: 1.33, position: [0, 0, 0], rotation: [Math.PI / 2, 0, -.33] },
-  "cta-0": { speed: 0.04, maxSpeed: 0.2, scale: 0.75, noiseStrength: 1.2, position: [0, 0.5, 0.5], rotation: [0, -1.3, 0.1] },
-  "cta-1": { speed: 0.03, maxSpeed: 0.15, scale: 0.75, noiseStrength: 1.4, position: [-2, -2.5, 0], rotation: [-1, -2.25, 0] },
-  "cta-2": { speed: 0.04, maxSpeed: 0.2, scale: 0.75, noiseStrength: 1.2, position: [0, 0.5, 0.5], rotation: [0, -1.3, 0.1] },
-  "cta-3": { speed: 0.03, maxSpeed: 0.15, scale: 0.75, noiseStrength: 1.4, position: [-2, -2.5, 0], rotation: [-1, -2.25, 0] },
-  portfolio: { speed: 0.3, maxSpeed: 0.5, scale: 1, noiseStrength: 0.7, position: [0, -1, 0], rotation: [-Math.PI / 3, 0, 0] },
+  hero: { speed: 0.02, maxSpeed: 0.04, scale: 0.5, noiseStrength: 1.8, position: [0, -1, 0], rotation: [-Math.PI / 4, 0, -0.5] },
+  "cta-0": { speed: 0.02, maxSpeed: 0.02, scale:1.125, noiseStrength: 1.2, position: [0, 0, 0], rotation: [0.1, -1.2, 0] },
+  "cta-1": { speed: 0.03, maxSpeed: 0.03, scale: 0.67, noiseStrength: 1.4, position: [-2, -2.5, 0], rotation: [-1, -2.2, 1] },
+  "cta-2": {speed: 0.02, maxSpeed: 0.02, scale: 1.125, noiseStrength: 1.2, position: [0, 0, 0], rotation: [0.1, -1.2, 0]  },
+  "cta-3": { speed: 0.03, maxSpeed: 0.03, scale: 0.67, noiseStrength: 1.4, position: [-2, -2.5, 0], rotation: [-1, -2.25, 0] },
+  portfolio: { speed: 0.01, maxSpeed: 0.02, scale: 0.5, noiseStrength: 1.2, position: [0, 0, 0], rotation: [-5, 0, 0] },
   services: { speed: 0.02, maxSpeed: 0.3, scale: 1, noiseStrength: 1.2, position: [0, 0, 0], rotation: [Math.PI / 2, 0, -Math.PI / 2] },
   footer: { 
     speed: 0.04, 
@@ -161,7 +161,7 @@ const ParticleWave = ({ isMenuOpen, activeEffect, progress, isWaveOn }) => {
       const x = pos.getX(i);
       const y = pos.getY(i);
       
-      let z = noiseStrength * simplex.noise3d(x * 0.2, y * 0.2, elapsedTime);
+      let z = noiseStrength * simplex.noise3d(x * 0.22, y * 0.22, elapsedTime);
       
       if (isFooter && pulseEnabled) {
         const particleData = colorMap.current.get(i) || { phase: 0, pulseSpeed: 1 };
@@ -174,10 +174,10 @@ const ParticleWave = ({ isMenuOpen, activeEffect, progress, isWaveOn }) => {
     pos.needsUpdate = true;
 
     // Smoothly interpolate position and rotation
-    currentPosition.current.lerp(targetPosition, 0.0005);
-    currentRotation.current.x += (targetRotation.x - currentRotation.current.x) * 0.3;
-    currentRotation.current.y += (targetRotation.y - currentRotation.current.y) * 0.3;
-    currentRotation.current.z += (targetRotation.z - currentRotation.current.z) * 0.3;
+    currentPosition.current.lerp(targetPosition, 0.04);
+    currentRotation.current.x += (targetRotation.x - currentRotation.current.x) * 0.07;
+    currentRotation.current.y += (targetRotation.y - currentRotation.current.y) * 0.07;
+    currentRotation.current.z += (targetRotation.z - currentRotation.current.z) * 0.07;
 
     meshRef.current.position.copy(currentPosition.current);
     meshRef.current.rotation.set(currentRotation.current.x, currentRotation.current.y, currentRotation.current.z);

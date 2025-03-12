@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { EASING, SLIDE_UP_ANIMATION } from '../utils/constants';
+import { SLIDE_UP_ANIMATION } from '../utils/constants';
 import "./MiniAbout.scss";;
 
 const MiniAbout = () => {

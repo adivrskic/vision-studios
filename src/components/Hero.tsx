@@ -4,7 +4,7 @@ import LoadingBar from "./LoadingBar";
 import { EASING } from "../utils/constants";
 import "./Hero.scss";
 
-const Hero = ({ hasLoadedOnce, setProgress }: { hasLoadedOnce: boolean, setProgress: (value: number) => void }) => {
+const Hero = ({ hasLoadedOnce, setProgress, setIsButtonHovered }: { hasLoadedOnce: boolean, setProgress: (value: number) => void }) => {
   const [isLoading, setIsLoading] = useState(!hasLoadedOnce);
   const progressRef = useRef<number>(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -40,7 +40,7 @@ const Hero = ({ hasLoadedOnce, setProgress }: { hasLoadedOnce: boolean, setProgr
         <>
           <motion.h1
             className="hero-header"
-            initial={{ opacity: 0, y: -16, filter: "blur(9px)", scale: 1.5 }}
+            initial={{ opacity: 0, y: -20, filter: "blur(8px)", scale: 1.6 }}
             animate={{ opacity: 1, y: 0, filter: "blur(0)", scale: 1 }}
             transition={{ delay: 0.25, duration: 2.5, ease: EASING }}
           >
@@ -48,7 +48,7 @@ const Hero = ({ hasLoadedOnce, setProgress }: { hasLoadedOnce: boolean, setProgr
           </motion.h1>
           <motion.p
             className="hero-subheader"
-            initial={{ opacity: 0, y: 16, filter: "blur(9px)", scale: 1.5 }}
+            initial={{ opacity: 0, y: 20, filter: "blur(9px)", scale: 1.6 }}
             animate={{ opacity: 1, y: 0, filter: "blur(0)", scale: 1 }}
             transition={{ delay: 0.25, duration: 2.5, ease: EASING }}
           >
@@ -56,16 +56,18 @@ const Hero = ({ hasLoadedOnce, setProgress }: { hasLoadedOnce: boolean, setProgr
           </motion.p>
           <motion.div
             className="hero-button-container"
-            initial={{ opacity: 0, y: "-50%", x: "-50%", scale: 1.2 }}
+            initial={{ opacity: 0, y: "-50%", x: "-50%", scale: 1.2  }}
             animate={{ opacity: 1, y: "-50%", x: "-50%", scale: 1 }}
             transition={{ delay: 1, duration: 2, ease: EASING }}
           >
             <button
-              className="button button--alt"
+              className="button button--alt with-ripple"
               onMouseDown={handleButtonPress}
               onMouseUp={handleButtonRelease}
               onTouchStart={handleButtonPress}
               onTouchEnd={handleButtonRelease}
+              // onMouseEnter={() => setIsButtonHovered(true)} // Notify App.tsx
+              // onMouseLeave={() => setIsButtonHovered(false)} // Reset hover state
             >
               See What We Do
             </button>

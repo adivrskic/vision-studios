@@ -63,7 +63,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  // transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 html {
@@ -151,6 +151,7 @@ form label {
 }
 
 .button {
+  /* Base button styling */
   padding: 16px 32px;
   border-radius: 999px;
   border: none;
@@ -162,13 +163,16 @@ form label {
   position: relative;
   display: inline-block;
   width: fit-content;
-  transition: filter, box-shadow .5s $easing;
-
-  // &--alt {
-  //   background: var(--accent-primary);
-  //   color: var(--text-button);
-  // }
-
+  white-space: nowrap;
+  transition: filter, box-shadow .6s $easing;
+  
+  /* Text gradient */
+  background-image: var(--accent-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  
+  /* Border effect */
   &::before {
     content: "";
     position: absolute;
@@ -176,25 +180,127 @@ form label {
     border-radius: 999px;
     padding: 2px;
     background: var(--accent-primary);
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
   }
+  
+  /* Hover state */
+  &:hover {
+    // filter: brightness(1.25);
+    box-shadow: var(--box-shadow);
+    
+    /* Additional hover border */
+    // &::after {
+    //   content: "";
+    //   position: absolute;
+    //   top: 50%;
+    //   left: 50%;
+    //   width: 100%;
+    //   height: 100%;
+    //   background: transparent;
+    //   border: 2px solid var(--accent-primary);
+    //   border-radius: 999px;
+    //   transform: translate(-50%, -50%);
+    //   pointer-events: none;
+    //   z-index: -1;
+    // }
+  }
+  
+  /* Ripple animations */
+  &.with-ripple:hover {
+    /* First ripple effect */
+    &::before {
+      /* Keep existing styling */
+      animation: ripple 2s $easing forwards;
+    }
+    
+    /* Second ripple with delay */
+    // &::after {
+    //   content: "";
+    //   position: absolute;
+    //   inset: 0;
+    //   border-radius: 999px;
+    //   border: solid 2px var(--accent-primary);
+    //   pointer-events: none;
+    //   background: transparent;
+    //   // animation: ripple 3s 2s $easing forwards;
+    // }
+  }
+}
 
+.menu nav button.selected::selection {
+  -webkit-background-clip: none;
+  color: #fff;
+  -webkit-text-fill-color: initial;
+}
+
+/* Separate class for just the border without animation */
+.fancy-button-static {
+  padding: 16px 32px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  transition: filter, box-shadow .5s ease;
+  
+  /* Text gradient */
   background-image: var(--accent-primary);
   background-clip: text;
   -webkit-background-clip: text;
-  color: var(--text-button);
-
+  color: transparent;
+  
+  /* Border effect */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    padding: 2px;
+    background: var(--accent-primary);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  
+  /* Hover state */
   &:hover {
     filter: brightness(1.25);
     box-shadow: var(--box-shadow);
+    
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: 2px solid var(--accent-primary);
+      border-radius: 999px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+  }
+}
+
+/* Keyframe animation */
+@keyframes ripple {
+  to {
+    transform: scale(1.6);
+    // border: 10px solid var(--accent-primary);
+    opacity: 0;
   }
 }
 

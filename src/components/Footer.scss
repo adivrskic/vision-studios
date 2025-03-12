@@ -24,7 +24,8 @@
       align-items: center;
 
       p {
-        max-width: 400px;
+        width: 960px;
+        max-width: calc(100% - 40px);
         text-align: center;
       }
   }

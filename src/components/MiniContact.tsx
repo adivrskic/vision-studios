@@ -89,24 +89,40 @@ const MiniContact = ({ onCompletionUpdate }) => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    
+  
     setFormData((prev) => {
-      const newValue =
-        type === "checkbox"
-          ? checked
-            ? [...prev.service, value]
-            : prev.service.filter((s) => s !== value)
-          : value;
-
+      let newValue;
+  
+      if (type === "checkbox") {
+        newValue = checked
+          ? [...prev.service, value]
+          : prev.service.filter((s) => s !== value);
+      } else if (type === "radio" && name === "timeline") {
+        // Keep the same value or deselect if clicking again
+        newValue = prev.timeline === value ? "" : value;
+      } else {
+        newValue = value;
+      }
+  
       return { ...prev, [name]: newValue };
     });
-
+  
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: validateField(name, value, fieldStates[name]?.wasFocused),
     }));
   };
-
+  
+  // Add onClick event to handle deselection
+  const handleRadioClick = (e) => {
+    const { name, value } = e.target;
+  
+    setFormData((prev) => ({
+      ...prev,
+      [name]: prev[name] === value ? "" : value, // Toggle selection/deselection
+    }));
+  };
+  
   useEffect(() => {
     let validCount = requiredFields.filter((field) => formData[field] && !errors[field]).length;
     if (formData.service.length > 0) validCount++;
@@ -167,10 +183,10 @@ const MiniContact = ({ onCompletionUpdate }) => {
       background: isComplete 
         ? 'var(--accent-primary)' 
         : 'transparent',
-      color: isComplete ? '#fff' : '#888',
-      opacity: isComplete ? 1 : 0.7,
+      color:'#fff',
+      opacity: isComplete ? 1 : 0.3,
       filter: `blur(${Math.max(0, (100 - completionPercentage) / 20)}px) grayscale(${100 - completionPercentage}%)`,
-      transition: "all 0.5s ease",
+      // transition: "all 0.5s ease",
     };
   };
 
@@ -184,7 +200,7 @@ const MiniContact = ({ onCompletionUpdate }) => {
       position: "absolute",
       bottom: "10px",
       right: 0,
-      backgroundColor: "#ff4d4f",
+      backgroundColor: "rgba(255, 77, 79, 0.6)",
       color: "white",
       padding: "4px 8px",
       borderRadius: "4px",
@@ -205,7 +221,7 @@ const MiniContact = ({ onCompletionUpdate }) => {
           onSubmit={handleSubmit}
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.5 } }}
+          exit={{ opacity: 0, transition: { duration: 0.6 } }}
         >
           <motion.div custom={0} variants={SLIDE_UP_ANIMATION} initial="hidden" animate="visible">
             <div className="container">
@@ -288,12 +304,20 @@ const MiniContact = ({ onCompletionUpdate }) => {
             <fieldset>
               <legend>Timeline</legend>
               {["<1 month", "1-3 months", "3+ months"].map((option) => (
-                <label key={option}>
-                  <input type="radio" name="timeline" value={option} checked={formData.timeline === option} onChange={handleChange} />
+                <label key={option} className={formData.timeline === option ? "selected" : ""}>
+                  <input
+                    type="radio"
+                    name="timeline"
+                    value={option}
+                    checked={formData.timeline === option}
+                    onClick={handleRadioClick} // Single function to handle selection & deselection
+                    readOnly // Prevents React warnings
+                  />
                   {option}
                 </label>
               ))}
             </fieldset>
+
           </motion.div>
 
           <motion.div custom={2} variants={SLIDE_UP_ANIMATION} initial="hidden" animate="visible">

@@ -22,7 +22,7 @@
     align-items: center;
 
     p {
-      max-width: 400px;
+      max-width: 920px;
       text-align: center;
     }
   }
@@ -237,6 +237,10 @@
 @media (max-width: 680px) {
   .service-card {
     padding: 40px 20px;
+  }
+
+  .service-card .button {
+    width: 100%;
   }
 
   .grid {

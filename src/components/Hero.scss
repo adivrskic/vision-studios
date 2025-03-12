@@ -10,7 +10,7 @@
   position: relative;
 
   &-header {
-    font-size: 50px;
+    font-size: 52px;
     text-transform: uppercase;
 
     span {
@@ -20,7 +20,8 @@
   }
 
   &-subheader {
-    width: 360px;
+    width: 920px;
+    max-width: calc(100% - 40px);
     text-align: center;
     margin-top: 20px;
   }
@@ -45,5 +46,13 @@
 @media (max-width: 960px) {
   .hero {
     padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    &-header {
+      font-size: 40px;
+    }
   }
 }

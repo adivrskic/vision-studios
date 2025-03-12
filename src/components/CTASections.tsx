@@ -50,14 +50,14 @@ const ctaSections: CTASection[] = [
 
 
 const fadeZoomVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 40 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
+      duration: 1.5,
       ease: EASING,
-      delay: i * 0.2 + 1.1,
+      delay: i * 0.12 + 0.7,
     },
   }),
 };
@@ -81,10 +81,10 @@ const CTASections: React.FC = ({ onOverlayToggle }) => {
     if (waveContainer) {
       if (activeSection !== null) {
         waveContainer.style.filter = 'blur(4px)';
-        waveContainer.style.transition = 'filter 0.6s ease-in-out';
+        waveContainer.style.transition = 'filter 1s ease-in-out';
       } else {
         waveContainer.style.filter = 'blur(0px)';
-        waveContainer.style.transition = 'filter 0.6s ease-in-out';
+        waveContainer.style.transition = 'filter 1s ease-in-out';
       }
     }
     console.log(activeSection);
@@ -145,10 +145,10 @@ const CTASections: React.FC = ({ onOverlayToggle }) => {
                     transition: { duration: isReturning ? 0 : 0.5, ease: "easeOut" } // Skip delay when returning
                   }}
                   exit={{ 
-                    opacity: 0.2, 
-                    scale: 0.95, 
-                    filter: "blur(4px)", 
-                    transition: { duration: 0.6, ease: "easeInOut" }
+                    opacity: 0, 
+                    scale: 0.92, 
+                    filter: "blur(6px)", 
+                    transition: { duration: 1, ease: EASING }
                   }}                  
                 >
                   <motion.h2 

@@ -30,12 +30,9 @@
   }
 }
 
-.cta-object {
-  width: 50%;
-}
-
 .cta-content {
-  width: 50%;
+  width: 100%;
+  max-width: 920px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -46,7 +43,7 @@
 
 .cta-header {
   position: relative;
-  font-size: 36px;
+  font-size: 40px;
   
   .cta-bold {
     font-weight: 700;

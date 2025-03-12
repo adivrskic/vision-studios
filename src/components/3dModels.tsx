@@ -7,20 +7,20 @@ import { useTheme } from '../context/ThemeContext'; // Adjust the import path
 import { EASING } from '../utils/constants';
 
 const PARTICLE_SIZE = 0.025;
-const HIGHLIGHTED_PARTICLE_SIZE = PARTICLE_SIZE * 1.5;
+const HIGHLIGHTED_PARTICLE_SIZE = PARTICLE_SIZE * 2;
 const EARTH_RADIUS = 1.33;
 const PARTICLE_COUNT = 20000;
 const DEFAULT_COLOR = new THREE.Color("#999"); 
 
 const LIGHT_THEME_COLORS = [
-  new THREE.Color("#ff6ec4"), // Pink
-  new THREE.Color("#7873f5"), // Purple
-  new THREE.Color("#50c9c3")  // Teal
+  new THREE.Color("#ff6ec4"),
+  new THREE.Color("#7873f5"),
+  new THREE.Color("#50c9c3")
 ];
 
 const DARK_THEME_COLORS = [
-  new THREE.Color("#84fab0"), // Light Green
-  new THREE.Color("#8fd3f4")  // Light Blue
+  new THREE.Color("#84fab0"),
+  new THREE.Color("#8fd3f4")
 ];
 export function EarthParticles({ completion, preload = false }) {
   const pointsRef = useRef(null);
@@ -134,6 +134,14 @@ export function EarthParticles({ completion, preload = false }) {
     }
   }, [completion, colors, particleChangeOrder, particleColors, sizes]);
 
+  // Rotate the particles around the Earth's axis
+  useFrame(({ clock }) => {
+    if (pointsRef.current) {
+      const rotationSpeed = 0.005; // Adjust speed as needed
+      pointsRef.current.rotation.y = clock.getElapsedTime() * rotationSpeed;
+    }
+  });
+
   return positions && colors && sizes ? (
     <points ref={pointsRef} rotation={[THREE.MathUtils.degToRad(23.5), 0, 0]}>
       <bufferGeometry>
@@ -153,6 +161,7 @@ export function EarthParticles({ completion, preload = false }) {
   ) : null;
 }
 
+
 export function ContactModel({ completion, preload = false }) {
   const [isReady, setIsReady] = useState(false);
   
@@ -160,7 +169,7 @@ export function ContactModel({ completion, preload = false }) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsReady(true);
-    }, 100); // Small delay to avoid pop-in effect
+    }, 50); // Small delay to avoid pop-in effect
     return () => clearTimeout(timeout);
   }, []);
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { EASING, Y_TRANSFORM, TRANSITION_SPEED_REG } from '../utils/constants';
 import { validateEmail } from '../utils/helpers';
-import { IoFlashOutline } from "react-icons/io5";
+import { IoFlashOutline, IoPlaySkipForwardCircleOutline } from "react-icons/io5";
 import "./ThankyouOverlay.scss";
 
 const STORAGE_KEY = "contactFormData";
@@ -17,6 +17,7 @@ const ThankYouOverlay: React.FC<{ selectedService: number | null; handleBackToSe
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [showContent, setShowContent] = useState(false);
+  const [skipTyping, setSkipTyping] = useState(false); // New state for skipping
 
   useEffect(() => {
     try {
@@ -45,58 +46,59 @@ const ThankYouOverlay: React.FC<{ selectedService: number | null; handleBackToSe
 
     let index = 0;
     const interval = setInterval(() => {
-      if (index < visibleText.length) {
+      if (index < visibleText.length && !skipTyping) {
         setTypingProgress(index + 1);
         index++;
       } else {
         clearInterval(interval);
-        setTimeout(() => setShowContent(true), 100);
+        setTypingProgress(visibleText.length); // Immediately finish typing if skipped
+        setTimeout(() => setShowContent(true), 1); // Show other content
       }
-    }, 90);
+    }, 70);
 
     return () => clearInterval(interval);
-  }, [selectedService, customerNeed]);
+  }, [selectedService, customerNeed, skipTyping]);
 
   const createMaskedHTML = () => {
     if (!customerNeed || !plainText) return "";
-    
+  
     if (typingProgress >= plainText.length) {
-      return customerNeed;
+      return `${customerNeed}<span class="typing-cursor">|</span>`;
     }
-    
+  
     const textNodes = [];
     let inTag = false;
     let currentTextNode = "";
-    
+  
     for (let i = 0; i < customerNeed.length; i++) {
       const char = customerNeed[i];
-      
-      if (char === '<') {
+  
+      if (char === "<") {
         if (currentTextNode) {
-          textNodes.push({ type: 'text', content: currentTextNode });
+          textNodes.push({ type: "text", content: currentTextNode });
           currentTextNode = "";
         }
         inTag = true;
-        textNodes.push({ type: 'tag-start', content: '<' });
-      } else if (char === '>') {
+        textNodes.push({ type: "tag-start", content: "<" });
+      } else if (char === ">") {
         inTag = false;
-        textNodes.push({ type: 'tag-end', content: '>' });
+        textNodes.push({ type: "tag-end", content: ">" });
       } else if (inTag) {
         textNodes[textNodes.length - 1].content += char;
       } else {
         currentTextNode += char;
       }
     }
-    
+  
     if (currentTextNode) {
-      textNodes.push({ type: 'text', content: currentTextNode });
+      textNodes.push({ type: "text", content: currentTextNode });
     }
-    
+  
     let maskedHTML = "";
     let textContentSoFar = 0;
-    
+  
     for (const node of textNodes) {
-      if (node.type === 'text') {
+      if (node.type === "text") {
         const nodeText = node.content;
         if (textContentSoFar >= typingProgress) {
           // Skip this text node as we've reached our typing limit
@@ -111,7 +113,9 @@ const ThankYouOverlay: React.FC<{ selectedService: number | null; handleBackToSe
         maskedHTML += node.content;
       }
     }
-    
+  
+    maskedHTML += `<span class="typing-cursor">|</span>`;
+  
     return maskedHTML;
   };
 
@@ -175,7 +179,12 @@ const ThankYouOverlay: React.FC<{ selectedService: number | null; handleBackToSe
       className="thank-you-overlay"
       initial={{ opacity: 0, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: Y_TRANSFORM }}
+      exit={{ 
+        opacity: 0, 
+        scale: 1.08, 
+        filter: "blur(8px)", 
+        transition: { duration: 1, ease: EASING }
+      }}       
       transition={{ duration: TRANSITION_SPEED_REG, ease: EASING }}
     >
       <motion.h2 className="thank-you-overlay__quote">
@@ -187,16 +196,16 @@ const ThankYouOverlay: React.FC<{ selectedService: number | null; handleBackToSe
             className="thank-you-overlay__content"
             initial={{ opacity: 0, y: Y_TRANSFORM }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: TRANSITION_SPEED_REG, delay: 0.2, ease: EASING }}
+            transition={{ duration: TRANSITION_SPEED_REG, delay: 0.12, ease: EASING }}
           >
             <p className="thank-you-overlay__text">
-              If this sounds like you, enter your email. We will get back with you as soon as we can!
+              If this sounds like you, simply enter your email. We would love to bring your dream project to life, and will get back with you as soon as we can!
             </p>
             <motion.div
               className="thank-you-overlay__email-container"
               initial={{ opacity: 0, y: Y_TRANSFORM }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: TRANSITION_SPEED_REG, delay: 0.4, ease: EASING }}
+              transition={{ duration: TRANSITION_SPEED_REG, delay: 0.24, ease: EASING }}
             >
               <input
                 type="email"
@@ -219,11 +228,22 @@ const ThankYouOverlay: React.FC<{ selectedService: number | null; handleBackToSe
             onClick={handleBackToServices}
             initial={{ opacity: 0, y: Y_TRANSFORM }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: TRANSITION_SPEED_REG, delay: 0.6, ease: EASING }}
+            transition={{ duration: TRANSITION_SPEED_REG, delay: 0.36, ease: EASING }}
           >
             Or Browse More Services
           </motion.button>
         </>
+      )}
+      {!showContent && (
+        <motion.span
+          className="thank-you-overlay__skip-button"
+          onClick={() => setSkipTyping(true)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: TRANSITION_SPEED_REG, delay: 0, ease: EASING }}
+        >
+          <IoPlaySkipForwardCircleOutline />
+        </motion.span>
       )}
     </motion.div>
   );

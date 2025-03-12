@@ -12,7 +12,7 @@ export const SLIDE_UP_ANIMATION = {
     opacity: 1,
     y: 0,
     filter: `blur(${custom.blurValue || 0}px) grayscale(${custom.grayscaleValue || 0}%)`,
-    transition: { delay: custom * 0.4, duration: 0.5 },
+    transition: { delay: custom * 0.12, duration: 1.5 },
   }),
 };
 

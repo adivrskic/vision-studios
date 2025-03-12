@@ -9,15 +9,15 @@ import MiniAbout from "./MiniAbout";
 import { ContactModel } from "./3dModels";
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 15 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASING } },
-  exit: { opacity: 0, y: -20, transition: { duration: 0.4, ease: EASING } },
+  exit: { opacity: 0, y: -15, transition: { duration: 0.4, ease: EASING } },
 };
 
 const scaleInFade = {
   hidden: { opacity: 0, },
-  visible: { opacity: 1, scale: 1, transition: { duration: 5, ease: "easeOut" } },
-  exit: { opacity: 0, transition: { duration: 0.5, ease: "easeIn" } },
+  visible: { opacity: 1, scale: 1, transition: { duration: 5, ease: EASING } },
+  exit: { opacity: 0, transition: { duration: 0.5, ease: EASING } },
 };
 
 const Menu = ({ onClose }) => {
@@ -26,7 +26,7 @@ const Menu = ({ onClose }) => {
   const [completion, setCompletion] = useState(0);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setShowModel(true), 1600); // Slight delay to allow UI to load first
+    const timeout = setTimeout(() => setShowModel(true), 1400); // Slight delay to allow UI to load first
     return () => clearTimeout(timeout);
   }, []);
 

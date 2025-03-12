@@ -36,8 +36,6 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             Atlanta, GA 
-            <IoMailOutline />
-            {/* <IoLocationOutline />  */}
           </motion.div>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
