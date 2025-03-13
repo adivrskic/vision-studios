@@ -1,0 +1,6 @@
+[build]
+  functions = "api"
+
+[dev]
+  command = "vite"
+  port = 8888
