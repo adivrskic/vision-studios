@@ -9,7 +9,7 @@ const Portfolio = () => {
   const slideshowRef = useRef(null);
   const slideCount = 3;
   const debounceTimeoutRef = useRef(null);
-    
+
   const fadeZoomVariants = {
     hidden: { opacity: 0, y: 40 },
     visible: (i) => ({
@@ -21,8 +21,8 @@ const Portfolio = () => {
         delay: i * 0.12 + 1,
       },
     }),
-    exit: { 
-      opacity: 0, 
+    exit: {
+      opacity: 0,
       scale: 0.9,
       transition: {
         duration: 0.6,
@@ -30,7 +30,7 @@ const Portfolio = () => {
       }
     }
   };
-  
+
   const leftContentVariants = {
     hidden: { opacity: 0, x: -40 },
     visible: {
@@ -41,8 +41,8 @@ const Portfolio = () => {
         ease: EASING
       }
     },
-    exit: { 
-      opacity: 0, 
+    exit: {
+      opacity: 0,
       x: -60,
       transition: {
         duration: 0.5,
@@ -50,7 +50,7 @@ const Portfolio = () => {
       }
     }
   };
-  
+
   const rightContentVariants = {
     hidden: { opacity: 0, x: 40 },
     visible: {
@@ -62,8 +62,8 @@ const Portfolio = () => {
         delay: 0.3 // Delay to create sequence after left content appears
       }
     },
-    exit: { 
-      opacity: 0, 
+    exit: {
+      opacity: 0,
       x: 60,
       transition: {
         duration: 0.5,
@@ -71,7 +71,34 @@ const Portfolio = () => {
       }
     }
   };
-  
+
+  // Glow animation variants
+  const glowVariants = {
+    hidden: { 
+      opacity: 0,
+      scale: 0.8
+    },
+    visible: {
+      opacity: 0.7,
+      scale: 1,
+      transition: {
+        duration: 1.2,
+        ease: EASING,
+        delay: 0.5
+      }
+    },
+    pulse: {
+      opacity: [0.5, 0.7, 0.5],
+      scale: [0.95, 1.05, 0.95],
+      transition: {
+        duration: 4,
+        ease: "easeInOut",
+        repeat: Infinity,
+        repeatType: "reverse"
+      }
+    }
+  };
+
   // Luxury digital agency projects data
   const projects = [
     {
@@ -107,25 +134,23 @@ const Portfolio = () => {
     const handleWheel = (e) => {
       // If we're already transitioning, don't do anything
       if (isTransitioning) return;
-      
       // Only prevent default and control slideshow if:
       // 1. Scrolling down and not at the last slide, OR
       // 2. Scrolling up and not at the first slide
       const scrollingDown = e.deltaY > 0;
       const scrollingUp = e.deltaY < 0;
-      
       const atFirstSlide = currentSlide === 0;
       const atLastSlide = currentSlide === slideCount - 1;
-      
+
       // If we should control the slideshow
       if ((scrollingDown && !atLastSlide) || (scrollingUp && !atFirstSlide)) {
         e.preventDefault();
-        
+
         // Clear any existing timeout
         if (debounceTimeoutRef.current) {
           clearTimeout(debounceTimeoutRef.current);
         }
-        
+
         // Set a new timeout
         debounceTimeoutRef.current = setTimeout(() => {
           if (scrollingDown) {
@@ -155,7 +180,6 @@ const Portfolio = () => {
   const handleSlideChange = (newIndex) => {
     setIsTransitioning(true);
     setCurrentSlide(newIndex);
-    
     // Reset transitioning state after animation completes
     setTimeout(() => {
       setIsTransitioning(false);
@@ -167,7 +191,7 @@ const Portfolio = () => {
       <AnimatePresence mode="wait">
         {projects.map((project, index) => (
           index === currentSlide && (
-            <motion.div 
+            <motion.div
               key={project.id}
               className="slide active"
               initial="hidden"
@@ -176,20 +200,17 @@ const Portfolio = () => {
               variants={fadeZoomVariants}
             >
               {/* Left side - Project info */}
-              <motion.div 
+              <motion.div
                 className="slide-content-left"
                 variants={leftContentVariants}
               >
                 <div>
-                  <div className="project-counter">
-                    <span>{index + 1}/3</span>
-                  </div>
-                  <h2 className="project-title">{project.title}</h2>
+                  <h2 className="project-title">
+                    <div className="project-counter">
+                      <span>{index + 1}/3</span>
+                    </div>{project.title}</h2>
                 </div>
-
                 <p className="project-description">{project.description}</p>
-
-                
                 <div className="project-details">
                   <div className="detail-item">
                     <span className="detail-label">Client</span>
@@ -204,8 +225,6 @@ const Portfolio = () => {
                     <p>{project.impact}</p>
                   </div>
                 </div>
-
-                                
                 {/* Pagination */}
                 <div className="pagination">
                   {Array.from({ length: slideCount }).map((_, index) => (
@@ -219,13 +238,24 @@ const Portfolio = () => {
                 </div>
               </motion.div>
               
-              {/* Right side - Tall Scrollable Image */}
-              <motion.div 
+              {/* Right side - Tall Scrollable Image with Glow Effect */}
+              <motion.div
                 className="slide-content-right"
                 variants={rightContentVariants}
               >
-                <div className="tall-image-container">
-                  <img src="assets/images/battleandbrew.jpg" alt="Project Tall Image" />
+                <div className="tall-image-wrapper">
+                  {/* Glowing background circle */}
+                  <motion.div 
+                    className="glow-circle"
+                    variants={glowVariants}
+                    initial="hidden"
+                    animate={["visible", "pulse"]}
+                  ></motion.div>
+                  
+                  {/* Tall image container */}
+                  <div className="tall-image-container">
+                    <img src="assets/images/battleandbrew.jpg" alt="Project Tall Image" />
+                  </div>
                 </div>
               </motion.div>
             </motion.div>

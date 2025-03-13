@@ -95,6 +95,10 @@ fieldset {
   legend {
     margin-bottom: 5px;
   }
+
+  label {
+    width: calc(25% - 4px);
+  }
 }
 
 .container > div {

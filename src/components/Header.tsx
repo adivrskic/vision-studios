@@ -161,7 +161,7 @@ const Header = ({ onMenuToggle, hasLoadedOnce, onWaveToggle }) => {
         type="translate" 
         from="0 0" 
         to="-45 0" 
-        dur="1.5s" 
+        dur="2.5s" 
         repeatCount="indefinite"
       />
     )}
