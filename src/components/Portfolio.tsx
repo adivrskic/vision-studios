@@ -87,16 +87,16 @@ const Portfolio = () => {
         delay: 0.5
       }
     },
-    pulse: {
-      opacity: [0.5, 0.7, 0.5],
-      scale: [0.95, 1.05, 0.95],
-      transition: {
-        duration: 4,
-        ease: "easeInOut",
-        repeat: Infinity,
-        repeatType: "reverse"
-      }
-    }
+    // pulse: {
+    //   opacity: [0.5, 0.7, 0.5],
+    //   scale: [0.95, 1.05, 0.95],
+    //   transition: {
+    //     duration: 4,
+    //     ease: "easeInOut",
+    //     repeat: Infinity,
+    //     repeatType: "reverse"
+    //   }
+    // }
   };
 
   // Luxury digital agency projects data
@@ -158,7 +158,7 @@ const Portfolio = () => {
           } else if (scrollingUp) {
             handleSlideChange(currentSlide - 1);
           }
-        }, 500); // 500ms debounce
+        }, 100); // 500ms debounce
       }
     };
 
@@ -183,7 +183,7 @@ const Portfolio = () => {
     // Reset transitioning state after animation completes
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 1000); // Increased to account for all animations
+    }, 500); // Increased to account for all animations
   };
 
   return (
@@ -205,12 +205,10 @@ const Portfolio = () => {
                 variants={leftContentVariants}
               >
                 <div>
-                  <h2 className="project-title">
-                    <div className="project-counter">
-                      <span>{index + 1}/3</span>
-                    </div>{project.title}</h2>
+                  <h2 className="project-title">{project.title}</h2>
+                  <p className="project-description">{project.description}</p>
                 </div>
-                <p className="project-description">{project.description}</p>
+                
                 <div className="project-details">
                   <div className="detail-item">
                     <span className="detail-label">Client</span>

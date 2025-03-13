@@ -87,37 +87,7 @@ const Header = ({ onMenuToggle, hasLoadedOnce, onWaveToggle }) => {
         </motion.span>
         
         {/* Star counter positioned to the lower right of the logo */}
-        <AnimatePresence>
-          {showStarCounter && (
-            <motion.div 
-              className="star-counter"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.8, y: -15 }}
-              transition={{ duration: 0.4, ease: EASING }}
-              style={{ 
-                position: "absolute", 
-                bottom: "-20px", 
-                right: "-40px", 
-                display: "flex", 
-                alignItems: "center", 
-                gap: "2px" 
-              }}
-            >
-              {/* Apply the accent-icon class to the star icon instead of inline style */}
-              <IoStar className="accent-icon" size={10} />
-              <span style={{ 
-                fontSize: "12px", 
-                fontWeight: "200", 
-                position: "relative", 
-                top: "3px" 
 
-              }}>
-                {starCount}/{totalStars}
-              </span>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
 
       <motion.div className="header-buttons">
