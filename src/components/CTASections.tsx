@@ -23,7 +23,7 @@ const ctaSections: CTASection[] = [
     customerNeed: `"I'm looking for a <span class="highlight-keyword">high-converting</span> website and I need it to be <span class="highlight-keyword">visually stunning</span> and <span class="highlight-keyword">responsive</span>."`
   },
   {
-    title: "AI Development – Smarter Sites, Better Engagement",
+    title: "AI Modernization – Smarter Sites, Better Engagement",
     description: "Upgrade your website with AI-powered automation, chatbots, and personalization to maximize engagement and retention.",
     price: "Custom Pricing",
     features: ["AI-driven chatbots & automation", "Seamless API & platform integrations", "Boosts user interaction"],

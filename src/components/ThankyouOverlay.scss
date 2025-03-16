@@ -70,7 +70,9 @@
     border-right: none;
     border-top-left-radius: 999px;
     border-bottom-left-radius: 999px;
-    padding-left:20px;
+    // padding-left:20px;
+    width: 100%;
+    padding: 10px 20px;
   }
 
   &__email-container {

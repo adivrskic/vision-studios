@@ -102,7 +102,7 @@ const ParticleWave = ({ isMenuOpen, activeEffect, progress, isWaveOn }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Initialize particle colors
+  // Initialize or update particle colors - Now also run when theme changes
   useEffect(() => {
     if (meshRef.current && isFooter) {
       const count = meshRef.current.geometry.attributes.position.count;
@@ -112,21 +112,23 @@ const ParticleWave = ({ isMenuOpen, activeEffect, progress, isWaveOn }) => {
       const c = theme === 'light' ? gradientColors : gradientColorsDark;
       
       for (let i = 0; i < count; i++) {
-        const colorIndex = Math.floor(Math.random() * c.length);
+        // Keep existing color map data if available, or create new
+        const existingData = colorMap.current.get(i);
+        const colorIndex = existingData?.baseColor ?? Math.floor(Math.random() * c.length);
         const color = c[colorIndex];
         
         colors[i * 3] = color.r;
         colors[i * 3 + 1] = color.g;
         colors[i * 3 + 2] = color.b;
         
-        const sizeVariation = 0.7 + Math.random() * 0.6;
+        const sizeVariation = existingData?.sizeMultiplier ?? (0.7 + Math.random() * 0.6);
         sizes[i] = waveEffects.footer.baseSize * sizeVariation;
         
         colorMap.current.set(i, {
           baseColor: colorIndex,
-          phase: Math.random() * Math.PI * 2,
-          pulseSpeed: 0.3 + Math.random() * 1.7,
-          sizeMultiplier: 0.8 + Math.random() * 0.4
+          phase: existingData?.phase ?? Math.random() * Math.PI * 2,
+          pulseSpeed: existingData?.pulseSpeed ?? (0.3 + Math.random() * 1.7),
+          sizeMultiplier: sizeVariation
         });
       }
       
@@ -134,13 +136,27 @@ const ParticleWave = ({ isMenuOpen, activeEffect, progress, isWaveOn }) => {
       
       if (meshRef.current.geometry.attributes.color === undefined) {
         meshRef.current.geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      } else {
+        // Update existing color buffer
+        const colorAttribute = meshRef.current.geometry.attributes.color;
+        for (let i = 0; i < count * 3; i++) {
+          colorAttribute.array[i] = colors[i];
+        }
+        colorAttribute.needsUpdate = true;
       }
       
       if (meshRef.current.geometry.attributes.size === undefined) {
         meshRef.current.geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+      } else {
+        // Update existing size buffer
+        const sizeAttribute = meshRef.current.geometry.attributes.size;
+        for (let i = 0; i < count; i++) {
+          sizeAttribute.array[i] = sizes[i];
+        }
+        sizeAttribute.needsUpdate = true;
       }
     }
-  }, [isFooter, meshRef.current]);
+  }, [isFooter, meshRef.current, theme]); // Added theme dependency
 
   // Main animation loop
   useFrame(({ clock }) => {
@@ -183,17 +199,17 @@ const ParticleWave = ({ isMenuOpen, activeEffect, progress, isWaveOn }) => {
     meshRef.current.rotation.set(currentRotation.current.x, currentRotation.current.y, currentRotation.current.z);
 
     // Color and size animation for footer effect
-    if (isFooter && colorEffects && particleColors && meshRef.current.geometry.attributes.color) {
+    if (isFooter && colorEffects && meshRef.current.geometry.attributes.color) {
       const colors = meshRef.current.geometry.attributes.color.array;
       const sizes = meshRef.current.geometry.attributes.size?.array;
+      
+      const c = theme === 'light' ? gradientColors : gradientColorsDark;
       
       for (let i = 0; i < pos.count; i++) {
         const particleData = colorMap.current.get(i);
         if (!particleData) continue;
-
-        const c = theme === 'light' ? gradientColors : gradientColorsDark;
         
-        const baseColor = c[particleData.baseColor];
+        const baseColor = c[particleData.baseColor % c.length]; // Ensure index is valid
         const brightness = 0.8 + 0.7 * Math.sin(time.current * particleData.pulseSpeed + particleData.phase);
         
         const nextColorIndex = (particleData.baseColor + 1) % c.length;

@@ -61,7 +61,7 @@ const Hero = ({ hasLoadedOnce, setProgress, setIsButtonHovered }: { hasLoadedOnc
             transition={{ delay: 1, duration: 2, ease: EASING }}
           >
             <button
-              className="button button--alt with-ripple"
+              className="button button--alt"
               onMouseDown={handleButtonPress}
               onMouseUp={handleButtonRelease}
               onTouchStart={handleButtonPress}
@@ -69,7 +69,7 @@ const Hero = ({ hasLoadedOnce, setProgress, setIsButtonHovered }: { hasLoadedOnc
               // onMouseEnter={() => setIsButtonHovered(true)} // Notify App.tsx
               // onMouseLeave={() => setIsButtonHovered(false)} // Reset hover state
             >
-              See What We Do
+              Browse Our Services
             </button>
             <span>Or Scroll Down</span>
           </motion.div>

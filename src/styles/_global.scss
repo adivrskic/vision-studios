@@ -7,7 +7,7 @@
   // --bg-secondary: #{$secondary};
   --text-primary: #{$text-light};
   --text-secondary: #{$text-light-secondary};
-  --text-button: transparent;
+  --text-button: #{$text-dark};
   --accent-primary: #{$deep-orbit};
   --selection-bg: #ff0077;
   --selection-text: #fff;
@@ -97,23 +97,39 @@ a {
   color: inherit;
 }
 
+/* General container for scroll snapping */
 .page-container {
   width: 100%;
-  scroll-snap-type: y mandatory;
-  overflow-y: auto;
-  min-height: 100vh;
   height: 100%;
-  scrollbar-width: none;
-  // background-color: var(--bg-primary);
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory; /* Snap behavior for vertical scrolling */
+  scrollbar-width: none; /* Hide scrollbar */
+  -ms-overflow-style: none; /* For IE */
+}
 
-  &::-webkit-scrollbar {
-    display: none;
+.page-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for clean look */
+}
+
+/* Make each section take full viewport height */
+.page-container > section {
+  scroll-snap-align: start; /* Align each section at the top of the viewport */
+  min-height: 100vh; /* Ensure each section takes up at least the full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ensure proper height adjustments for mobile browsers */
+@media screen and (max-width: 768px) {
+  .page-container {
+    height: 100vh; /* Force the height to always fit the viewport on mobile */
+    overflow-y: auto; /* Allow scrolling */
   }
 
-  > section {
-    scroll-snap-align: start;
-    min-height: 100vh;
-    // background-color: var(--bg-primary);
+  .page-container > section {
+    min-height: 100vh; /* Each section should take up 100% of the viewport height */
   }
 }
 

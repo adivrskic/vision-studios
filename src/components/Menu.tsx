@@ -54,6 +54,9 @@ const Menu = ({ onClose }) => {
         <div className="menu-content">
           <div className="menu-header-container">
             <h1 className="menu__header">Vision<span>Studios</span></h1>
+            <p className="menu__subheader">
+              Innovative web solutions, AI integrations, and seamless user experiences.
+            </p>
             <nav className="menu-options">
               <button onClick={() => setActiveMenu("about")} className={activeMenu === "about" ? "selected" : ""}>
                 About
@@ -65,9 +68,7 @@ const Menu = ({ onClose }) => {
                 Services
               </button>
             </nav>
-            <p className="menu__subheader">
-              Innovative web solutions, AI integrations, and seamless user experiences.
-            </p>
+
           </div>
 
           <AnimatePresence mode="wait">

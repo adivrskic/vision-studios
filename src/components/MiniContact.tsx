@@ -85,8 +85,6 @@ const MiniContact = ({ onCompletionUpdate }) => {
     }));
   };
 
-  // When validating
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
   
@@ -183,7 +181,7 @@ const MiniContact = ({ onCompletionUpdate }) => {
       background: isComplete 
         ? 'var(--accent-primary)' 
         : 'transparent',
-      color:'#fff',
+      color:'#ccc',
       opacity: isComplete ? 1 : 0.3,
       filter: `blur(${Math.max(0, (100 - completionPercentage) / 20)}px) grayscale(${100 - completionPercentage}%)`,
       // transition: "all 0.5s ease",
@@ -194,7 +192,18 @@ const MiniContact = ({ onCompletionUpdate }) => {
   const fieldStyles = {
     inputWrapper: {
       position: "relative",
-      width: "100%"
+      width: "100%",
+    },
+    floatingLabel: {
+      position: "absolute",
+      left: "0px",
+      pointerEvents: "none",
+      transition: "all 0.2s ease",
+      fontSize: "12px",
+      border: 'none',
+      color: '#ccc',
+      padding: 0,
+      transformOrigin: 'left'
     },
     errorTooltip: {
       position: "absolute",
@@ -225,68 +234,124 @@ const MiniContact = ({ onCompletionUpdate }) => {
         >
           <motion.div custom={0} variants={SLIDE_UP_ANIMATION} initial="hidden" animate="visible">
             <div className="container">
-              <div style={fieldStyles.inputWrapper}>
-                <input 
-                  type="text" 
-                  name="firstName" 
-                  placeholder="First Name" 
-                  value={formData.firstName} 
-                  onChange={handleChange}
-                  style={errors.firstName ? { borderColor: "#ff4d4f" } : {}}
-                />
-                {errors.firstName && (
-                  <div style={fieldStyles.errorTooltip}>
-                    {errors.firstName}
-                  </div>
-                )}
+              <div className="form-field">
+                <div style={fieldStyles.inputWrapper}>
+                  <input 
+                    id="firstName"
+                    type="text" 
+                    name="firstName" 
+                    value={formData.firstName} 
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={formData.firstName ? "has-value" : ""}
+                    style={errors.firstName ? { borderColor: "#ff4d4f" } : {}}
+                  />
+                  <label 
+                    htmlFor="firstName" 
+                    style={{
+                      ...fieldStyles.floatingLabel,
+                      top: formData.firstName ? "-10px" : "50%",
+                      transform: formData.firstName ? "translateY(0) scale(0.8)" : "translateY(-50%)",
+                    }}
+                  >
+                    First Name
+                  </label>
+                  {errors.firstName && (
+                    <div style={fieldStyles.errorTooltip}>
+                      {errors.firstName}
+                    </div>
+                  )}
+                </div>
               </div>
-              <div style={fieldStyles.inputWrapper}>
-                <input 
-                  type="text" 
-                  name="lastName" 
-                  placeholder="Last Name" 
-                  value={formData.lastName} 
-                  onChange={handleChange}
-                  style={errors.lastName ? { borderColor: "#ff4d4f" } : {}}
-                />
-                {errors.lastName && (
-                  <div style={fieldStyles.errorTooltip}>
-                    {errors.lastName}
-                  </div>
-                )}
+              <div className="form-field">
+                <div style={fieldStyles.inputWrapper}>
+                  <input 
+                    id="lastName"
+                    type="text" 
+                    name="lastName" 
+                    value={formData.lastName} 
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={formData.lastName ? "has-value" : ""}
+                    style={errors.lastName ? { borderColor: "#ff4d4f" } : {}}
+                  />
+                  <label 
+                    htmlFor="lastName" 
+                    style={{
+                      ...fieldStyles.floatingLabel,
+                      top: formData.lastName ? "-10px" : "50%",
+                      transform: formData.lastName ? "translateY(0) scale(0.8)" : "translateY(-50%)",
+                    }}
+                  >
+                    Last Name
+                  </label>
+                  {errors.lastName && (
+                    <div style={fieldStyles.errorTooltip}>
+                      {errors.lastName}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
             <div className="container">
-              <div style={fieldStyles.inputWrapper}>
-                <input 
-                  type="email" 
-                  name="email" 
-                  placeholder="Email" 
-                  value={formData.email} 
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  style={errors.email ? { borderColor: "#ff4d4f" } : {}}
-                />
-                {errors.email && (
-                  <div style={fieldStyles.errorTooltip}>
-                    {errors.email}
-                  </div>
-                )}
+              <div className="form-field">
+                <div style={fieldStyles.inputWrapper}>
+                  <input 
+                    id="email"
+                    type="email" 
+                    name="email" 
+                    value={formData.email} 
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={formData.email ? "has-value" : ""}
+                    style={errors.email ? { borderColor: "#ff4d4f" } : {}}
+                  />
+                  <label 
+                    htmlFor="email" 
+                    style={{
+                      ...fieldStyles.floatingLabel,
+                      top: formData.email ? "-10px" : "50%",
+                      transform: formData.email ? "translateY(0) scale(0.8)" : "translateY(-50%)",
+                    }}
+                  >
+                    Email
+                  </label>
+                  {errors.email && (
+                    <div style={fieldStyles.errorTooltip}>
+                      {errors.email}
+                    </div>
+                  )}
+                </div>
               </div>
-              <div style={fieldStyles.inputWrapper}>
-                <input 
-                  type="tel" 
-                  name="phone" 
-                  placeholder="Phone (optional)" 
-                  value={formData.phone} 
-                  onChange={handleChange}
-                  style={errors.phone ? { borderColor: "#ff4d4f" } : {}}
-                />
-                {errors.phone && (
-                  <div style={fieldStyles.errorTooltip}>
-                    {errors.phone}
-                  </div>
-                )}
+              <div className="form-field">
+                <div style={fieldStyles.inputWrapper}>
+                  <input 
+                    id="phone"
+                    type="tel" 
+                    name="phone" 
+                    value={formData.phone} 
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={formData.phone ? "has-value" : ""}
+                    style={errors.phone ? { borderColor: "#ff4d4f" } : {}}
+                  />
+                  <label 
+                    htmlFor="phone" 
+                    style={{
+                      ...fieldStyles.floatingLabel,
+                      top: formData.phone ? "0px" : "50%",
+                      transform: formData.phone ? "translateY(0) scale(0.8)" : "translateY(-50%)",
+                      color: '#ccc'
+                    }}
+                  >
+                    Phone (optional)
+                  </label>
+                  {errors.phone && (
+                    <div style={fieldStyles.errorTooltip}>
+                      {errors.phone}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </motion.div>
@@ -310,37 +375,50 @@ const MiniContact = ({ onCompletionUpdate }) => {
                     name="timeline"
                     value={option}
                     checked={formData.timeline === option}
-                    onClick={handleRadioClick} // Single function to handle selection & deselection
-                    readOnly // Prevents React warnings
+                    onClick={handleRadioClick} 
+                    readOnly
                   />
                   {option}
                 </label>
               ))}
             </fieldset>
-
           </motion.div>
 
           <motion.div custom={2} variants={SLIDE_UP_ANIMATION} initial="hidden" animate="visible">
-            <div style={fieldStyles.inputWrapper}>
-              <textarea 
-                name="message" 
-                placeholder="Tell us about your project..." 
-                value={formData.message} 
-                onChange={handleChange}
-                style={errors.message ? { borderColor: "#ff4d4f" } : {}}
-              />
-              {errors.message && (
-                <div style={{
-                  ...fieldStyles.errorTooltip,
-                  bottom: "auto",
-                  top: "10px",
-                  right: "10px",
-                  left: "auto",
-                  transform: "none"
-                }}>
-                  {errors.message}
-                </div>
-              )}
+            <div className="form-field">
+              <div style={fieldStyles.inputWrapper}>
+                <textarea 
+                  id="message"
+                  name="message" 
+                  value={formData.message} 
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={formData.message ? "has-value" : ""}
+                  style={errors.message ? { borderColor: "#ff4d4f" } : {}}
+                />
+                  <label 
+                  htmlFor="message" 
+                  style={{
+                    ...fieldStyles.floatingLabel,
+                    top: formData.message ? "-10px" : "10px",
+                    transform: formData.message ? "translateY(0) scale(0.8)" : "translateY(0)",
+                  }}
+                >
+                  Tell us about your project...
+                </label>
+                {errors.message && (
+                  <div style={{
+                    ...fieldStyles.errorTooltip,
+                    bottom: "auto",
+                    top: "10px",
+                    right: "10px",
+                    left: "auto",
+                    transform: "none"
+                  }}>
+                    {errors.message}
+                  </div>
+                )}
+              </div>
             </div>
           </motion.div>
 
