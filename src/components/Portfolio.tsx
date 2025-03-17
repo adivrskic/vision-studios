@@ -59,7 +59,7 @@ const Portfolio = () => {
       transition: {
         duration: 0.8,
         ease: EASING,
-        delay: 0.3 // Delay to create sequence after left content appears
+        delay: 0.3
       }
     },
     exit: {
@@ -72,7 +72,6 @@ const Portfolio = () => {
     }
   };
 
-  // Glow animation variants
   const glowVariants = {
     hidden: { 
       opacity: 0,
@@ -87,19 +86,8 @@ const Portfolio = () => {
         delay: 0.5
       }
     },
-    // pulse: {
-    //   opacity: [0.5, 0.7, 0.5],
-    //   scale: [0.95, 1.05, 0.95],
-    //   transition: {
-    //     duration: 4,
-    //     ease: "easeInOut",
-    //     repeat: Infinity,
-    //     repeatType: "reverse"
-    //   }
-    // }
   };
 
-  // Luxury digital agency projects data
   const projects = [
     {
       id: 1,
@@ -129,36 +117,29 @@ const Portfolio = () => {
     }
   ];
 
-  // Handle mouse wheel scrolling with debounce
   useEffect(() => {
     const handleWheel = (e) => {
-      // If we're already transitioning, don't do anything
       if (isTransitioning) return;
-      // Only prevent default and control slideshow if:
-      // 1. Scrolling down and not at the last slide, OR
-      // 2. Scrolling up and not at the first slide
+
       const scrollingDown = e.deltaY > 0;
       const scrollingUp = e.deltaY < 0;
       const atFirstSlide = currentSlide === 0;
       const atLastSlide = currentSlide === slideCount - 1;
 
-      // If we should control the slideshow
       if ((scrollingDown && !atLastSlide) || (scrollingUp && !atFirstSlide)) {
         e.preventDefault();
 
-        // Clear any existing timeout
         if (debounceTimeoutRef.current) {
           clearTimeout(debounceTimeoutRef.current);
         }
 
-        // Set a new timeout
         debounceTimeoutRef.current = setTimeout(() => {
           if (scrollingDown) {
             handleSlideChange(currentSlide + 1);
           } else if (scrollingUp) {
             handleSlideChange(currentSlide - 1);
           }
-        }, 100); // 500ms debounce
+        }, 100);
       }
     };
 
@@ -180,10 +161,9 @@ const Portfolio = () => {
   const handleSlideChange = (newIndex) => {
     setIsTransitioning(true);
     setCurrentSlide(newIndex);
-    // Reset transitioning state after animation completes
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 500); // Increased to account for all animations
+    }, 500);
   };
 
   return (
@@ -199,7 +179,6 @@ const Portfolio = () => {
               exit="exit"
               variants={fadeZoomVariants}
             >
-              {/* Left side - Project info */}
               <motion.div
                 className="slide-content-left"
                 variants={leftContentVariants}
@@ -223,7 +202,6 @@ const Portfolio = () => {
                     <p>{project.impact}</p>
                   </div>
                 </div>
-                {/* Pagination */}
                 <div className="pagination">
                   {Array.from({ length: slideCount }).map((_, index) => (
                     <button
@@ -236,13 +214,11 @@ const Portfolio = () => {
                 </div>
               </motion.div>
               
-              {/* Right side - Tall Scrollable Image with Glow Effect */}
               <motion.div
                 className="slide-content-right"
                 variants={rightContentVariants}
               >
                 <div className="tall-image-wrapper">
-                  {/* Glowing background circle */}
                   <motion.div 
                     className="glow-circle"
                     variants={glowVariants}
@@ -250,7 +226,6 @@ const Portfolio = () => {
                     animate={["visible", "pulse"]}
                   ></motion.div>
                   
-                  {/* Tall image container */}
                   <div className="tall-image-container">
                     <img src="assets/images/battleandbrew.jpg" alt="Project Tall Image" />
                   </div>

@@ -159,9 +159,9 @@ const App = () => {
           <CTASections onOverlayToggle={(v) => handleOverlayToggle(v)} />
         </section>
 
-        <section className="content-container" data-effect="portfolio">
+        {/* <section className="content-container" data-effect="portfolio">
           <Portfolio />
-        </section>
+        </section> */}
 
         <section className="content-container" data-effect="services">
           <Services />

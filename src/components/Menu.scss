@@ -89,14 +89,14 @@
 
   .menu-container {
     flex-direction:column;
+    justify-content: flex-start;
   }
 
   .particle-scene-container {
     width: 100%;
-
-    > div {
-      transform: translateY(50%) !important;
-    }
+    height: 100dvh;
+    opacity: 0.5 !important;
+    transform: scale(0.67) !important;
   }
 
   .menu-content {
