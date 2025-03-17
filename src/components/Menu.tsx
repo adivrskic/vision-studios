@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { EASING, SLIDE_UP_ANIMATION } from '../utils/constants';
+import { EASING, SLIDE_UP_ANIMATION, Y_TRANSFORM } from '../utils/constants';
 import { IoCloseCircleOutline } from "react-icons/io5";
 import "./Menu.scss";
 import MiniContact from "./MiniContact";
@@ -9,9 +9,9 @@ import MiniAbout from "./MiniAbout";
 import { ContactModel } from "./3dModels";
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 15 },
+  hidden: { opacity: 0, y: Y_TRANSFORM },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASING } },
-  exit: { opacity: 0, y: -15, transition: { duration: 0.4, ease: EASING } },
+  exit: { opacity: 0, y: Y_TRANSFORM, transition: { duration: 0.4, ease: EASING } },
 };
 
 const scaleInFade = {
@@ -26,7 +26,7 @@ const Menu = ({ onClose }) => {
   const [completion, setCompletion] = useState(0);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setShowModel(true), 1400); // Slight delay to allow UI to load first
+    const timeout = setTimeout(() => setShowModel(true), 1500); // Slight delay to allow UI to load first
     return () => clearTimeout(timeout);
   }, []);
 
@@ -79,24 +79,21 @@ const Menu = ({ onClose }) => {
         </div>
       </div>
 
-      {/* Contact Model - Delayed Load with Scale & Fade */}
-
-        <AnimatePresence>
-          <motion.div
-            className="particle-scene-container"
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={scaleInFade}
-            layout
-          >
-            {showModel && 
-              <ContactModel completion={completion} />
-            }
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
-
+      <AnimatePresence>
+        <motion.div
+          className="particle-scene-container"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={scaleInFade}
+          layout
+        >
+          {showModel && 
+            <ContactModel completion={completion} />
+          }
+        </motion.div>
+      </AnimatePresence>
+    </motion.div>
   );
 };
 

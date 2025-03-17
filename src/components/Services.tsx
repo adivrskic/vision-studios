@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { IoCheckmarkOutline, IoTimerOutline } from "react-icons/io5";
-import { services, EASING } from '../utils/constants';
+import { services, EASING, Y_TRANSFORM } from '../utils/constants';
 import "./Services.scss";
 
 const Services: React.FC = () => {
@@ -43,7 +43,7 @@ const ServiceCard = ({ service }) => {
   return (
     <motion.div
       className="service-card p-6 bg-white shadow-lg rounded-lg relative overflow-hidden"
-      initial={{ opacity: 0, y: 15 }}
+      initial={{ opacity: 0, y: Y_TRANSFORM }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 1, ease: EASING }}

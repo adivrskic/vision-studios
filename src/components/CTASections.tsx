@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { IoCheckmarkOutline } from "react-icons/io5";
-import { EASING } from '../utils/constants';
+import { EASING, Y_TRANSFORM, BLUR } from '../utils/constants';
 import './CTASections.scss';
 import ThankYouOverlay from "./ThankyouOverlay";
 
@@ -48,9 +48,8 @@ const ctaSections: CTASection[] = [
   },
 ];
 
-
 const fadeZoomVariants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: Y_TRANSFORM },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
@@ -80,10 +79,10 @@ const CTASections: React.FC = ({ onOverlayToggle }) => {
     const waveContainer = document.querySelector('.wave-container') as HTMLElement;
     if (waveContainer) {
       if (activeSection !== null) {
-        waveContainer.style.filter = 'blur(4px)';
+        waveContainer.style.filter = BLUR;
         waveContainer.style.transition = 'filter 1s ease-in-out';
       } else {
-        waveContainer.style.filter = 'blur(0px)';
+        waveContainer.style.filter = BLUR;
         waveContainer.style.transition = 'filter 1s ease-in-out';
       }
     }
@@ -106,17 +105,15 @@ const CTASections: React.FC = ({ onOverlayToggle }) => {
   return (
     <div className="cta-sections">
       {ctaSections.map((cta, index) => {
-        // Create custom ref for inView detection with appropriate threshold
         const ref = useRef(null);
         const isInView = useInView(ref, { 
-          once: false,  // Changed to false to allow re-animation if scrolled away and back
-          amount: 0.1   // Trigger when 30% of the element is in view
+          once: false,
+          amount: 0.05 
         });
         
         const isActive = activeSection === index;
         const isEven = index % 2 === 0;
 
-        // Extract the first two words only
         const titleWords = cta.title.split(" ");
         const firstWord = titleWords[0] || "";
         const secondWord = titleWords[1] || "";
@@ -132,7 +129,7 @@ const CTASections: React.FC = ({ onOverlayToggle }) => {
           >
             <AnimatePresence mode="wait">
               {isActive ? (
-                <ThankYouOverlay customerNeed={cta.customerNeed} selectedService={activeSection} handleBackToServices={handleBackToServices} />
+                <ThankYouOverlay customerNeed={cta?.customerNeed} selectedService={activeSection} handleBackToServices={handleBackToServices} />
               ) : (
                 // Original content
                 <motion.div
@@ -142,12 +139,12 @@ const CTASections: React.FC = ({ onOverlayToggle }) => {
                   animate={{ 
                     opacity: 1, 
                     x: 0, 
-                    transition: { duration: isReturning ? 0 : 0.5, ease: "easeOut" } // Skip delay when returning
+                    transition: { duration: isReturning ? 0 : 0.5, ease: "easeOut" }
                   }}
                   exit={{ 
                     opacity: 0, 
                     scale: 0.92, 
-                    filter: "blur(6px)", 
+                    filter: BLUR, 
                     transition: { duration: 1, ease: EASING }
                   }}                  
                 >
@@ -159,7 +156,8 @@ const CTASections: React.FC = ({ onOverlayToggle }) => {
                     animate={isInView ? "visible" : "hidden"}
                   >
                     <span className="cta-highlight">
-                      <span className="cta-bold">{firstWord}</span><span className="cta-light">{secondWord}</span>
+                      <span className="cta-bold">{firstWord}</span>
+                      <span className="cta-light">{secondWord}</span>
                     </span>
                     <br /> {normalText}
                   </motion.h2>
@@ -187,11 +185,11 @@ const CTASections: React.FC = ({ onOverlayToggle }) => {
                   </motion.ul>
                   <motion.button
                     className="button"
-                    custom={cta.features.length + 3} // Ensure the delay is based on the last li
+                    custom={cta.features.length + 3}
                     variants={fadeZoomVariants}
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
-                    transition={{ delay: (cta.features.length + 1) * 0.2 + 1.1 }} // Add 0.2s extra
+                    transition={{ delay: (cta.features.length + 1) * 0.2 + 1.1 }}
                     onClick={() => handleActivateSection(index)}
                   >
                     {cta.buttonText}

@@ -2,6 +2,9 @@ import { IoRibbonOutline, IoAnalyticsOutline, IoRocketOutline, IoCheckmarkDone, 
 
 export const EASING = [0.25, 1, 0.5, 1];
 export const Y_TRANSFORM = -15;
+export const BLUR = 'blur(8px)';
+export const SCALE_LG = 1.2;
+export const SCALE_XL = 1.5;
 export const TRANSITION_SPEED_FAST = 0.4;
 export const TRANSITION_SPEED_REG = 0.7;
 export const TRANSITION_SPEED_SLOW = 1;
@@ -37,7 +40,6 @@ export const stepsByService = {
   ],
 };
 
-// Fixed the services array to properly use JSX elements
 export const services = [
   {
     title: "Web Design",
@@ -118,5 +120,48 @@ export const services = [
     timeframe: "1-2 Months + Ongoing",
     badge: "Revenue Generator",
     badgeIcon: IoBagCheckOutline
+  },
+];
+
+export const MINISERVICES = [
+  { 
+    title: "AI Integrations", 
+    description: [
+      "Automate tasks with AI.",
+      "Gain actionable insights.",
+      "Enhance personalization.",
+    ],
+  },
+  { 
+    title: "Custom Development", 
+    description: [
+      "Robust web applications.",
+      "Scalable and maintainable codebase.",
+      "Seamless user interactions.",
+    ],
+  },
+  { 
+    title: "E-commerce Solutions", 
+    description: [
+      "Automate tasks with AI.",
+      "Gain actionable insights.",
+      "Enhance personalization.",
+    ],
+  },
+  { 
+    title: "SEO Optimization", 
+    description: [
+      "Higher search rankings.",
+      "Faster website performance.",
+      "Enhanced user engagement.",
+    ],
+  },
+  { 
+    title: "Web Design", 
+    description: [
+      "Visually stunning, responsive designs.",
+      "Tailored to your brand identity.",
+      "Optimized for modern user experience.",
+    ],
   },
 ];

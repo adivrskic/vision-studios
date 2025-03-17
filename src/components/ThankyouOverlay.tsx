@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { EASING, Y_TRANSFORM, TRANSITION_SPEED_REG } from '../utils/constants';
+import { EASING, Y_TRANSFORM, TRANSITION_SPEED_REG, BLUR } from '../utils/constants';
 import { validateEmail } from '../utils/helpers';
 import { IoFlashOutline, IoPlaySkipForwardCircleOutline } from "react-icons/io5";
 import "./ThankyouOverlay.scss";
@@ -17,7 +17,7 @@ const ThankYouOverlay: React.FC<{ selectedService: number | null; handleBackToSe
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [showContent, setShowContent] = useState(false);
-  const [skipTyping, setSkipTyping] = useState(false); // New state for skipping
+  const [skipTyping, setSkipTyping] = useState(false);
 
   useEffect(() => {
     try {
@@ -51,8 +51,8 @@ const ThankYouOverlay: React.FC<{ selectedService: number | null; handleBackToSe
         index++;
       } else {
         clearInterval(interval);
-        setTypingProgress(visibleText.length); // Immediately finish typing if skipped
-        setTimeout(() => setShowContent(true), 1); // Show other content
+        setTypingProgress(visibleText.length);
+        setTimeout(() => setShowContent(true), 1);
       }
     }, 70);
 
@@ -101,7 +101,7 @@ const ThankYouOverlay: React.FC<{ selectedService: number | null; handleBackToSe
       if (node.type === "text") {
         const nodeText = node.content;
         if (textContentSoFar >= typingProgress) {
-          // Skip this text node as we've reached our typing limit
+          continue;
         } else if (textContentSoFar + nodeText.length <= typingProgress) {
           maskedHTML += nodeText;
         } else {
@@ -182,7 +182,7 @@ const ThankYouOverlay: React.FC<{ selectedService: number | null; handleBackToSe
       exit={{ 
         opacity: 0, 
         scale: 1.08, 
-        filter: "blur(8px)", 
+        filter: BLUR, 
         transition: { duration: 1, ease: EASING }
       }}       
       transition={{ duration: TRANSITION_SPEED_REG, ease: EASING }}
@@ -240,7 +240,7 @@ const ThankYouOverlay: React.FC<{ selectedService: number | null; handleBackToSe
           onClick={() => setSkipTyping(true)}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: TRANSITION_SPEED_REG, delay: 0, ease: EASING }}
+          transition={{ duration: TRANSITION_SPEED_REG, delay: 0.12, ease: EASING }}
         >
           <IoPlaySkipForwardCircleOutline />
         </motion.span>

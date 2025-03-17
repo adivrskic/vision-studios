@@ -111,13 +111,12 @@ const MiniContact = ({ onCompletionUpdate }) => {
     }));
   };
   
-  // Add onClick event to handle deselection
   const handleRadioClick = (e) => {
     const { name, value } = e.target;
   
     setFormData((prev) => ({
       ...prev,
-      [name]: prev[name] === value ? "" : value, // Toggle selection/deselection
+      [name]: prev[name] === value ? "" : value
     }));
   };
   
@@ -173,7 +172,6 @@ const MiniContact = ({ onCompletionUpdate }) => {
     setErrors({});
   };
 
-  // Button style based on completion
   const getButtonStyle = () => {
     const isComplete = completionPercentage === 100;
     
@@ -184,11 +182,9 @@ const MiniContact = ({ onCompletionUpdate }) => {
       color:'#ccc',
       opacity: isComplete ? 1 : 0.3,
       filter: `blur(${Math.max(0, (100 - completionPercentage) / 20)}px) grayscale(${100 - completionPercentage}%)`,
-      // transition: "all 0.5s ease",
     };
   };
 
-  // Common styles for the form fields and error tooltips
   const fieldStyles = {
     inputWrapper: {
       position: "relative",

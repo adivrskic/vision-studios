@@ -161,6 +161,25 @@ export function EarthParticles({ completion, preload = false }) {
   ) : null;
 }
 
+function GlassSphere() {
+  return (
+    <mesh scale={[EARTH_RADIUS * 0.98, EARTH_RADIUS * 0.98, EARTH_RADIUS * 0.98]}>
+      <sphereGeometry args={[1, 64, 64]} />
+      <meshPhysicalMaterial 
+        color="#ffffff"
+        transmission={0.95} 
+        roughness={0.1} 
+        metalness={0.1}
+        clearcoat={1}
+        clearcoatRoughness={0.1}
+        opacity={0.6}
+        transparent={true}
+        side={BackSide}
+      />
+    </mesh>
+  );
+}
+
 
 export function ContactModel({ completion, preload = false }) {
   const [isReady, setIsReady] = useState(false);
@@ -180,7 +199,9 @@ export function ContactModel({ completion, preload = false }) {
         <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
           <ambientLight intensity={0.5} />
           <directionalLight position={[2, 2, 2]} />
-          <EarthParticles completion={0} preload={true} />
+          <Environment preset="city" />
+          <EarthParticles completion={completion} />
+          <GlassSphere />
         </Canvas>
       </div>
     );
