@@ -123,7 +123,7 @@ export const services = [
   },
 ];
 
-export const MINISERVICES = [
+export const MINI_SERVICES = [
   { 
     title: "AI Integrations", 
     description: [
