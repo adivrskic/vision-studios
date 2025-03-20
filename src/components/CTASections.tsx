@@ -49,7 +49,7 @@ const ctaSections: CTASection[] = [
 ];
 
 const fadeZoomVariants = {
-  hidden: { opacity: 0, y: Y_TRANSFORM },
+  hidden: { opacity: 0, y: -Y_TRANSFORM },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,

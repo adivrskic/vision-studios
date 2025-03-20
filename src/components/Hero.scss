@@ -2,7 +2,7 @@
 
 .hero {
   width: 100%;
-  height: calc(100dvh - 80px);
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,7 +10,7 @@
   position: relative;
 
   &-header {
-    font-size: 52px;
+    font-size: 48px;
     text-transform: uppercase;
 
     span {
@@ -33,12 +33,12 @@
     justify-content: center;
     gap: 20px;
     position: absolute;
-    top: calc(100% - 40px);
+    top: calc(100% - 80px);
     left: 50%;
     transform: translate(-50%, 0);
 
     span {
-      font-weight: 300;
+      font-weight: 200;
     }
   }
 }

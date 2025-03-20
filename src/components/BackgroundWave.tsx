@@ -5,12 +5,12 @@ import { SimplexNoise } from "three/examples/jsm/math/SimplexNoise";
 import { useTheme } from '../context/ThemeContext'; // Adjust import path as needed
 
 const waveEffects = {
-  hero: { speed: 0.02, maxSpeed: 0.04, scale: 0.5, noiseStrength: 1.8, position: [0, -1, 0], rotation: [-Math.PI / 4, 0, -0.5] },
+  hero: { speed: 0.02, maxSpeed: 0.04, scale: 0.67, noiseStrength: 1.8, position: [0, -1, 0], rotation: [-Math.PI / 4, 0, -0.5] },
   "cta-0": { speed: 0.02, maxSpeed: 0.02, scale:1.125, noiseStrength: 1.2, position: [0, 0, 0], rotation: [0.1, -1.2, 0] },
-  "cta-1": { speed: 0.03, maxSpeed: 0.03, scale: 0.67, noiseStrength: 1.4, position: [-2, -2.5, 0], rotation: [-1, -2.2, 1] },
+  "cta-1": { speed: 0.03, maxSpeed: 0.03, scale: 0.67, noiseStrength: 1.4, position: [-1, -2.2, 0], rotation: [-1, -2.1, 1] },
   "cta-2": {speed: 0.02, maxSpeed: 0.02, scale: 1.125, noiseStrength: 1.2, position: [0, 0, 0], rotation: [0.1, -1.2, 0]  },
-  "cta-3": { speed: 0.03, maxSpeed: 0.03, scale: 0.67, noiseStrength: 1.4, position: [-2, -2.5, 0], rotation: [-1, -2.25, 0] },
-  portfolio: { speed: 0.01, maxSpeed: 0.02, scale: 0.5, noiseStrength: 1.2, position: [0, 0, 0], rotation: [-5, 0, 0] },
+  "cta-3": { speed: 0.03, maxSpeed: 0.03, scale: 0.67, noiseStrength: 1.4, position: [-1, -2.2, 0], rotation: [-1, -2.1, 0] },
+  portfolio: { speed: 0.01, maxSpeed: 0.02, scale: 0.67, noiseStrength: 1.2, position: [0, 0, 0], rotation: [-5, 0, 0] },
   services: { speed: 0.02, maxSpeed: 0.3, scale: 1, noiseStrength: 1.2, position: [0, 0, 0], rotation: [Math.PI / 2, 0, -Math.PI / 2] },
   footer: { 
     speed: 0.04, 

@@ -179,7 +179,7 @@ const MiniContact = ({ onCompletionUpdate }) => {
       background: isComplete 
         ? 'var(--accent-primary)' 
         : 'transparent',
-      color:'#ccc',
+      color: isComplete ? '#fff' : '#ccc',
       opacity: isComplete ? 1 : 0.3,
       filter: `blur(${Math.max(0, (100 - completionPercentage) / 20)}px) grayscale(${100 - completionPercentage}%)`,
     };
